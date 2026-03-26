@@ -14,7 +14,7 @@ description = "Long term memory for AI agents."
 meme = { version = "0.6", path = "meme" }
 
 anyhow = "1"
-arrow = { version = "57", default-features = false }
+arrow = { version = "58", default-features = false }
 arrow-array = "57"
 arrow-schema = "57"
 chrono = { version = "0.4.44", features = ["serde"] }
