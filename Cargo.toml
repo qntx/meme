@@ -15,7 +15,7 @@ meme = { version = "0.6", path = "meme" }
 
 anyhow = "1"
 arrow = { version = "57", default-features = false }
-arrow-array = "57"
+arrow-array = "58"
 arrow-schema = "57"
 chrono = { version = "0.4.44", features = ["serde"] }
 clap = { version = "4.6.0", features = ["derive"] }
