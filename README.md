@@ -30,13 +30,13 @@ meme implements a production-grade memory pipeline with a Rust core: (1) **Seman
 **Shell** (macOS / Linux):
 
 ```sh
-curl -fsSL https://sh.qntx.fun/meme | sh
+curl -fsSL https://sh.qntx.org/meme | sh
 ```
 
 **PowerShell** (Windows):
 
 ```powershell
-irm https://sh.qntx.fun/meme/ps | iex
+irm https://sh.qntx.org/meme/ps | iex
 ```
 
 ### CLI
@@ -329,10 +329,11 @@ Unless you explicitly state otherwise, any contribution intentionally submitted 
 
 <div align="center">
 
-A **[QuantX](https://qntx.fun)** open-source project.
+A **[QuantX](https://qntx.org)** open-source project.
 
-<a href="https://qntx.fun"><img alt="QuantX" width="369" src="https://raw.githubusercontent.com/qntx/.github/main/profile/qntx.svg" /></a>
+<a href="https://qntx.org"><img alt="QuantX" width="369" src="https://raw.githubusercontent.com/qntx/.github/main/profile/qntx.svg" /></a>
 
 Code is law. We write both.
 
 </div>
+
