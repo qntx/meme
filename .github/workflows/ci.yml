@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  ci:
+    uses: qntx/workflows/.github/workflows/ci-rust.yml@v2
+    permissions:
+      contents: read
+    with:
+      deny: true
+      submodules: true
+      apt-packages: protobuf-compiler
