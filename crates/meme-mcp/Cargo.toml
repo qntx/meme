@@ -27,7 +27,7 @@ vulkan = ["meme/vulkan"]
 axum       = { version = "0.8.9" }
 meme       = { version = "1.0.0", path = "../meme", default-features = false, features = ["llama"] }
 regex      = { version = "1.13.1" }
-rmcp       = { version = "~3.8", features = ["server", "transport-io"] }
+rmcp       = { version = "~3.9", features = ["server", "transport-io"] }
 serde_json = { version = "1.0.154", features = ["preserve_order"] }
 thiserror  = "2.0.21"
 time       = { version = "0.3.55" }
