@@ -59,6 +59,13 @@ fn origin_hostname(origin: &str) -> Option<String> {
 /// default port dropped).
 fn normalize_origin(origin: &str) -> Option<String> {
     let url = url::Url::parse(origin.trim()).ok()?;
+    // url <= 2.5.8 `Url::origin()` recurses once per nested `blob:` prefix
+    // and can overflow the stack (RUSTSEC-2026-0592); the `Origin` header
+    // is client-controlled. A `blob:` Origin is never legitimate — reject
+    // it instead of calling `origin()`. url 2.5.9 drops the recursion.
+    if url.scheme() == "blob" {
+        return None;
+    }
     Some(url.origin().ascii_serialization().to_lowercase())
 }
 
