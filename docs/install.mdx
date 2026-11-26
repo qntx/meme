@@ -8,12 +8,12 @@ Prebuilt binaries are attached to each
 
 | Target | Notes |
 | --- | --- |
-| `x86_64-unknown-linux-gnu` | glibc ≥ 2.39 (Ubuntu 24.04+, Debian 13+); x86 CPU needs AVX2 (Haswell 2013 or newer) |
-| `aarch64-unknown-linux-gnu` | same glibc ≥ 2.39 baseline |
+| `x86_64-unknown-linux-gnu` | glibc ≥ 2.28 (RHEL 8+, Debian 10+, Ubuntu 20.04+); x86 CPU needs AVX2 (Haswell 2013 or newer) |
+| `aarch64-unknown-linux-gnu` | same glibc ≥ 2.28 baseline |
 | `aarch64-apple-darwin` | Apple Silicon; Metal acceleration built in |
 | `x86_64-pc-windows-msvc` | Windows x64 — second-tier support: builds and ships, release-smoke verified, but the test suite is Unix-oriented and `meme mcp stop` cannot kill a live daemon (same as upstream; use `taskkill`). ARM64 Windows is not built — MSVC cannot compile llama.cpp's ARM kernels |
 
-Older Linux systems (glibc lower than 2.39, pre-AVX2 CPUs) can still
+Older Linux systems (glibc lower than 2.28, pre-AVX2 CPUs) can still
 build from source:
 
 ```text

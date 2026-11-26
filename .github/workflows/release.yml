@@ -23,5 +23,11 @@ jobs:
         aarch64-unknown-linux-gnu
         aarch64-apple-darwin
         x86_64-pc-windows-msvc
-      # g++ required for the llama.cpp C++ cross-compile (S1 rehearsal).
-      cross-packages: 'gcc-aarch64-linux-gnu g++-aarch64-linux-gnu'
+      # The gnu builds link against glibc 2.28 (RHEL 8, Debian 10 and newer)
+      # with cargo-zigbuild, whose zig cc/c++ also compiles llama.cpp for
+      # aarch64; the build fails if a binary needs a newer GLIBC_x.y.
+      glibc-floor: "2.28"
+      # Loads the binary (every versioned glibc symbol) and prints its version.
+      smoke-command: --version
+      # AlmaLinux 8 (glibc 2.28), multi-arch index digest for amd64 + arm64/v8.
+      smoke-image: almalinux:8-minimal@sha256:771e3223b49005328247f22e21f41164dab2f5c3f80ba06f6f970cfd0fb3691a

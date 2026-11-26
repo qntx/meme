@@ -6,6 +6,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) 
 
 ## [Unreleased]
 
+### Changed
+
+- Linux binaries now run on glibc 2.28+ (RHEL 8 and its rebuilds, Debian 10,
+  Ubuntu 20.04 and newer): the `x86_64`/`aarch64-unknown-linux-gnu` release
+  builds link against glibc 2.28 with cargo-zigbuild instead of the build
+  host's 2.39, the release fails if a binary needs a newer `GLIBC_x.y`, and
+  every gnu binary is smoke-tested in AlmaLinux 8 before it is published.
+
 ## [1.0.0] - 2026-11-08
 
 ### Breaking
