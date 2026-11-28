@@ -59,6 +59,13 @@ fn origin_hostname(origin: &str) -> Option<String> {
 /// default port dropped).
 fn normalize_origin(origin: &str) -> Option<String> {
     let url = url::Url::parse(origin.trim()).ok()?;
+    // url <= 2.5.8 `Url::origin()` recurses once per nested `blob:` prefix
+    // and can overflow the stack (RUSTSEC-2026-0592); the `Origin` header
+    // is client-controlled. A `blob:` Origin is never legitimate — reject
+    // it instead of calling `origin()`. url 2.5.9 drops the recursion.
+    if url.scheme() == "blob" {
+        return None;
+    }
     Some(url.origin().ascii_serialization().to_lowercase())
 }
 
@@ -373,6 +380,20 @@ mod tests {
     fn rejects_non_http_schemes() {
         let guard = guard_for("localhost");
         assert!(check(Some("file://"), Some("localhost:8181"), &guard).is_some());
+    }
+
+    #[test]
+    fn rejects_blob_origin_before_recursing() {
+        // RUSTSEC-2026-0592: url <= 2.5.8 `Url::origin()` reparses a
+        // `blob:` URL's path and recurses once per nested prefix, so a
+        // client-controlled Origin of this depth can overflow the stack.
+        // The scheme check must reject it before `origin()` runs — a
+        // shallow `blob:` wrapping a loopback inner URL is rejected too
+        // (never a legitimate Origin).
+        let guard = guard_for("localhost");
+        assert!(check(Some("blob:http://localhost:8181"), None, &guard).is_some());
+        let deep = format!("{}x", "blob:".repeat(100_000));
+        assert!(check(Some(&deep), Some("localhost:8181"), &guard).is_some());
     }
 
     #[test]
