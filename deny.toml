@@ -5,26 +5,9 @@
 all-features = true
 
 [advisories]
-yanked = "warn"
+yanked       = "warn"
 unmaintained = "none"
-ignore = [
-  # url <= 2.5.8: `Url::origin()` recurses once per nested `blob:` prefix
-  # and can overflow the stack. url 2.5.8 is a direct dependency of
-  # meme-mcp. REACHABLE on main: `meme mcp --http` passes the
-  # client-supplied `Origin` header to `origin_guard::normalize_origin`,
-  # which calls `Url::origin()`, so any client that can connect to the
-  # HTTP port (default bind `localhost`; wider with `--host`/`MEME_HOST`)
-  # can abort the daemon with a nested `blob:` Origin. Browsers set
-  # Origin themselves, so a web page cannot send one. stdio mode is not
-  # affected. rmcp's only other call site (`streamable_http_client`) is
-  # behind `transport-streamable-http-client-reqwest`, which meme-mcp
-  # does not enable. A guard that rejects `blob:` Origins before
-  # `origin()` is a separate PR (behaviour change, owner review).
-  # Fixed in 2.5.9, published 2026-11-20T23:03Z.
-  # Revisit: from 2026-11-28 (7-day rule) run `cargo update -p url` to
-  # 2.5.9 and remove this entry.
-  { id = "RUSTSEC-2026-0592", reason = "Url::origin() blob: recursion; reachable via the Origin header of meme mcp --http (default bind localhost) until url 2.5.9 or the blob: guard PR lands; bump url to 2.5.9 and remove from 2026-11-28" },
-]
+ignore       = []
 
 [licenses]
 allow                = ["MIT", "Apache-2.0", "Apache-2.0 WITH LLVM-exception", "BSD-2-Clause", "BSD-3-Clause", "ISC", "OpenSSL", "Zlib", "Unicode-3.0", "Unicode-DFS-2016", "CC0-1.0", "MPL-2.0", "CDLA-Permissive-2.0"]
